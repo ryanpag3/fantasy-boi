@@ -9,6 +9,18 @@ bot.on('ready', () => {
 
 bot.on('message', message => {
     console.log(message);
+    const startsWith: string = message.content.split(' ')[0];
+    handleCommand(startsWith);
 });
 
 bot.login(pConfig.token);
+
+/* commands */
+const handleCommand = (command: string) => {
+    
+
+    switch (command) {
+        case '!help':
+
+    }
+}
