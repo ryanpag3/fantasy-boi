@@ -1,0 +1,30 @@
+{
+  "name": "fantasy-boi",
+  "version": "1.0.0",
+  "description": "Discord fantasy football bot.",
+  "main": "dist/fantasy-boi.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && nodemon dist/fantasy-boi.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "-"
+  },
+  "author": "Ryan Page",
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^3.0.5",
+    "discord.js": "^11.4.2",
+    "erlpack": "github:discordapp/erlpack",
+    "libsodium": "^0.7.3",
+    "libsodium-wrappers": "^0.7.3",
+    "node-opus": "^0.2.9",
+    "opusscript": "0.0.6",
+    "sodium": "^2.0.3",
+    "uws": "^9.148.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.10.1"
+  }
+}
