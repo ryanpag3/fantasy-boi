@@ -9,5 +9,8 @@ var bot = new discord_js_1.default.Client();
 bot.on('ready', function () {
     console.log('ready');
 });
+bot.on('message', function (message) {
+    console.log(message);
+});
 bot.login(config_private_json_1.default.token);
 //# sourceMappingURL=fantasy-boi.js.map
