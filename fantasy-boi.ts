@@ -35,16 +35,16 @@ bot.on('message', message => {
 });
 
 /* import commands */
-import help from './commands/help';
-import test from './commands/test';
+import help from './commands/help'; // get a list of commands
+import test from './commands/test'; // test bot functionality
+import matchups from './commands/matchups'; // get this weeks matchups
 
-/* 
-  load listeners 
-  format: (command, handler)
-*/
 emitter.on(prefix + 'help', help);
 emitter.on(prefix + 'h', help);
 emitter.on(prefix + 'test', test);
+emitter.on(prefix + 't', test);
+emitter.on(prefix + 'matchups', matchups);
+emitter.on(prefix + 'm', matchups);
 
 /* start scheduler */
 const scheduler = new Scheduler();

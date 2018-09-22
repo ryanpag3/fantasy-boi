@@ -14,7 +14,7 @@ export default class Scheduler {
         /* jobs */
         // guild.setDefaultMessageNotification('ALL', 'test');
         new CronJob('* * * * *', () => {
-            this.testCron();
+            // this.testCron();
         }, null, startNow, LOCALE)
     }
 

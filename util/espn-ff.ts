@@ -1,4 +1,4 @@
-import espnFF from 'espn-ff-api';
+import espnFF from 'espn-ff-api-2';
 import pConfig from '../config.private.json';
 
 export default class EspnFF {
@@ -6,14 +6,11 @@ export default class EspnFF {
     readonly swid: string = pConfig.espn.SWID;
     cookies: object;
 
-    constructor() {
-        this.cookies = {
-            espnS2: this.s2Token,
-            SWID: this.swid
-        }
+    constructor(cookies: object = undefined) {
+        this.cookies = cookies;
     }
 
     getLeagueScoreboard = (leagueId: string) => {
-        return espnFF.getLeagueScoreboard(this.cookies, leagueId);
+        return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId);
     }
 }
