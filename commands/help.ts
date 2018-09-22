@@ -1,9 +1,5 @@
-import {
-    EventEmitter
-} from "events";
+import { Message } from 'discord.js';
 
-export default (message) => {
-    
-
-    console.log('emitter initialized');
+export default (message: Message) => {
+    message.channel.send('Help has been called!');
 }
