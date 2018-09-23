@@ -13,7 +13,7 @@ export default (message: Message) => {
             for (let matchup of res.scoreboard.matchups) {
                 const teamA = matchup.teams[0];
                 const locationA = teamA.team.teamLocation;
-                const nicknameA = teamA.team.teamNickname;                
+                const nicknameA = teamA.team.teamNickname;
                 const nameA = locationA + (locationA.endsWith(' ') || nicknameA.startsWith(' ') ? '' : ' ') + nicknameA;
                 const teamB = matchup.teams[1];
                 const locationB = teamB.team.teamLocation;

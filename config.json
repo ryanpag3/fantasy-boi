@@ -1,6 +1,11 @@
 {
     "prefix": "!fb ",
-    "mongo": {
-        "url": "mongodb://127.0.0.1"
+    "database": {
+        "mysql": {
+            "name": "fantasy_boi_db",
+            "url": "localhost",
+            "port": 3306,
+            "dialect": "mysql"
+        }
     }
 }

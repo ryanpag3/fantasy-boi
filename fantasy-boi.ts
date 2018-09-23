@@ -3,9 +3,12 @@ import Discord from 'discord.js';
 import { prefix } from './config.json';
 import pConfig from './config.private.json';
 import Scheduler from './util/scheduler';
+import DB from './util/db';
 
 let bot = new Discord.Client();
 const emitter = new EventEmitter();
+
+DB.init(); // initialize database
 
 /* ready listener */
 bot.on('ready', () => {
@@ -35,16 +38,26 @@ bot.on('message', message => {
 });
 
 /* import commands */
-import help from './commands/help'; // get a list of commands
-import test from './commands/test'; // test bot functionality
-import matchups from './commands/matchups'; // get this weeks matchups
+import help from './commands/help';
+import test from './commands/test';
+import matchups from './commands/matchups';
+import add from './commands/add';
 
+// get a list of commands
 emitter.on(prefix + 'help', help);
 emitter.on(prefix + 'h', help);
+
+// test bot functionality
 emitter.on(prefix + 'test', test);
 emitter.on(prefix + 't', test);
+
+// get this weeks matchups
 emitter.on(prefix + 'matchups', matchups);
 emitter.on(prefix + 'm', matchups);
+
+// add fantasy boi to the league
+emitter.on(prefix + 'add', add);
+
 
 /* start scheduler */
 const scheduler = new Scheduler();
