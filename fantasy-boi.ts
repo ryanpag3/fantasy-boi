@@ -42,6 +42,7 @@ import help from './commands/help';
 import test from './commands/test';
 import matchups from './commands/matchups';
 import add from './commands/add';
+import remove from './commands/remove';
 
 // get a list of commands
 emitter.on(prefix + 'help', help);
@@ -55,9 +56,14 @@ emitter.on(prefix + 't', test);
 emitter.on(prefix + 'matchups', matchups);
 emitter.on(prefix + 'm', matchups);
 
-// add fantasy boi to the league
+// add fantasy boi to the channel
 emitter.on(prefix + 'add', add);
+emitter.on(prefix + 'a', add);
 
+
+// remove fantasy boi from a channel
+emitter.on(prefix + 'remove', remove);
+emitter.on(prefix + 'rm', remove);
 
 /* start scheduler */
 const scheduler = new Scheduler();

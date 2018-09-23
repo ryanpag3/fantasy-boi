@@ -17,7 +17,6 @@ export default (message: Message) => {
         league_id: content,
         channel_id: message.channel.id
     }).then((res) => {
-        console.log(res);
         if (res == true)
             message.channel.send('League has been successfully added to ' + message.channel + '! :fist:');
         else

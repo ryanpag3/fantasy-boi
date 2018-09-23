@@ -12,7 +12,8 @@ const sequelize = new Sequelize({
     username: pConfig.mysql.user,
     password: pConfig.mysql.password,
     dialect: config.database.mysql.dialect,
-    operatorsAliases: false
+    operatorsAliases: false,
+    logging: false
 });
 
 const conn = mysql.createConnection({
