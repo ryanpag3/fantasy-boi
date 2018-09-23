@@ -71,6 +71,12 @@ emitter.on(prefix + 'rm', remove);
 
 // set league start date
 
+// set league type
+
+// change league type
+
+// change league id
+
 // betting [enable/disable]
 
 // set initial season coins
@@ -82,6 +88,14 @@ emitter.on(prefix + 'rm', remove);
 // list trophies
 
 // list records
+
+// list standings
+
+// list team lineup
+
+// list box score
+
+// enable/disable scheduled jobs
 
 /* start scheduler */
 const scheduler = new Scheduler();

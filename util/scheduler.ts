@@ -1,4 +1,6 @@
-import { CronJob } from 'cron';
+import {
+    CronJob
+} from 'cron';
 import DB from './db';
 import bot from './bot';
 import ESPNFF from './espn-ff';
@@ -22,7 +24,9 @@ export default class Scheduler {
             this.showMatchups();
         }, null, startNow, LOCALE);
 
-
+        new CronJob('* * * * *', () => {
+            this.showCloseScores();
+        }, null, startNow, LOCALE);
     }
 
     testCron = () => {
@@ -35,20 +39,20 @@ export default class Scheduler {
     }
 
     showMatchups = () => {
+
+    }
+
+    showCloseScores = () => {
         LeagueChannel.findAll({})
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
-                    espnFF.getLeagueMatchups(result.league_id)
-                        .then((scoreboard) => {
-                            bot.sendMessage(result.channel_id, scoreboard);
-                        })
+                    espnFF.getCloseScores(result.league_id)
+                        .then((scores) => {
+                            bot.sendMessage(result.channel_id, scores);
+                        });
                 }
             })
-    }
-
-    showCloseScores = () => {
-        // todo
     }
 
     showTrophies = () => {
@@ -59,5 +63,8 @@ export default class Scheduler {
         // todo
     }
 
-}
+    showBoxScore = () => {
+        // todo
+    }
 
+}

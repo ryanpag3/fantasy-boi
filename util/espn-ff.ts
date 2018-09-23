@@ -44,4 +44,38 @@ export default class EspnFF {
     setToLastThursday = (d) => {
         return d.setDate(d.getDate() - d.getDay() + 4);
     }
+
+    getCloseScores = (leagueId: string) => {
+        console.log('addad');
+        return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
+            .then(payload => this.generateCloseScores(payload))
+    }
+
+    // TODO: account for no close scores
+    // TODO: randomize response
+    generateCloseScores = (payload) => {
+        let closeScores = 'Here\'s your close scores! Any nail biters?? :cold_sweat:\n'
+        for (let matchup of payload.scoreboard.matchups) {
+            const teams = matchup.teams;
+            if (Math.abs(teams[0].score - teams[1].score) < 15)
+                closeScores += this.getScoreline(teams[0], teams[1]);
+        }
+        return closeScores;
+    }
+
+    getLocation = (team) => {
+        return team.team.teamLocation;
+    }
+
+    getNickname = (team) => {
+        return team.team.teamNickname;
+    }
+
+    getName = (team) => {
+        return this.getLocation(team) + (this.getLocation(team).endsWith(' ') || this.getNickname(team).startsWith(' ') ? '' : ' ') + this.getNickname(team);
+    }
+
+    getScoreline = (teamA, teamB) => {
+        return '**' + this.getName(teamA) + '** [' + teamA.score + '] vs **' + this.getName(teamB) + '** [' + teamB.score + ']\n';
+    }
 }
