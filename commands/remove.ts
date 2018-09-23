@@ -22,6 +22,6 @@ export default (message: Message) => {
         if (res == 0)
             message.channel.send('League could not be found for specified channel. :sweat_smile:')
         else
-            message.channel.send('League with id: [' + content + '] was successfully deleted from the channel!')
+            message.channel.send('League with id: [' + content + '] was successfully deleted from the channel! :persevere:')
     })
 }

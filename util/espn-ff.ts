@@ -13,18 +13,20 @@ export default class EspnFF {
     /**
      * get a formatted league scoreboard
      */
-    getLeagueScoreboard = (leagueId: string) => {
+    getLeagueMatchups = (leagueId: string) => {
         return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
             .then((payload) => {
-                return this.generateLeagueScoreboard(payload);
+                return this.generateLeagueMatchups(payload);
             });
     }
 
     /**
      * generate a scoreboard from the raw api payload
      */
-    generateLeagueScoreboard = (payload) => {
-        let matchups = 'Here\'s your matchups!\n';
+    generateLeagueMatchups = (payload) => {
+        const date = new Date();
+        this.setToLastThursday(date);
+        let matchups = 'Here\'s your matchups for the week of ' + date.toLocaleDateString() + '\n';
         for (let matchup of payload.scoreboard.matchups) {
             const teamA = matchup.teams[0];
             const locationA = teamA.team.teamLocation;
@@ -37,5 +39,9 @@ export default class EspnFF {
             matchups += '**' + nameA + '** [' + teamA.score + '] vs **' + nameB + '** [' + teamB.score + ']\n';
         }
         return matchups;
+    }
+
+    setToLastThursday = (d) => {
+        return d.setDate(d.getDate() - d.getDay() + 4);
     }
 }

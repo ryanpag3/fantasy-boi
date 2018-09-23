@@ -41,9 +41,5 @@ export default {
             });
         });
 
-    },
-
-    createLeague(id: string) {
-
     }
 }

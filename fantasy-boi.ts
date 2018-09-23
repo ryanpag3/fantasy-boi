@@ -54,16 +54,34 @@ emitter.on(prefix + 't', test);
 
 // get this weeks matchups
 emitter.on(prefix + 'matchups', matchups);
+emitter.on(prefix + 'scoreboard', matchups);
 emitter.on(prefix + 'm', matchups);
 
 // add fantasy boi to the channel
 emitter.on(prefix + 'add', add);
 emitter.on(prefix + 'a', add);
 
-
 // remove fantasy boi from a channel
 emitter.on(prefix + 'remove', remove);
 emitter.on(prefix + 'rm', remove);
+
+// link an espn user account
+
+// unlink an espn user account
+
+// set league start date
+
+// betting [enable/disable]
+
+// set initial season coins
+
+// bet on NFL game
+
+// bet on matchup
+
+// list trophies
+
+// list records
 
 /* start scheduler */
 const scheduler = new Scheduler();
