@@ -46,7 +46,6 @@ export default class EspnFF {
     }
 
     getCloseScores = (leagueId: string) => {
-        console.log('addad');
         return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
             .then(payload => this.generateCloseScores(payload))
     }
