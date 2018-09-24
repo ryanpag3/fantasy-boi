@@ -25,6 +25,11 @@ export default class Scheduler {
             console.log('executing close scores announcement');
             this.showCloseScores();
         }, null, startNow, LOCALE);
+
+        new CronJob('* * * * *', () => {
+            console.log('executing trophies announcement');
+            this.showTrophies();
+        }, null, startNow, LOCALE);
     }
 
     showMatchups = () => {
@@ -35,6 +40,9 @@ export default class Scheduler {
                     espnFF.getLeagueMatchups(result.league_id)
                         .then((matchups) => {
                             bot.sendMessage(result.channel_id, matchups);
+                        })
+                        .catch((err) => {
+                            console.log(err);
                         })
                 }
             })
@@ -48,13 +56,29 @@ export default class Scheduler {
                     espnFF.getCloseScores(result.league_id)
                         .then((scores) => {
                             bot.sendMessage(result.channel_id, scores);
+                        })
+                        .catch((err) => {
+                            console.log(err);
                         });
                 }
             })
     }
 
     showTrophies = () => {
-        // todo
+        LeagueChannel.findAll({})
+            .then((results: any) => {
+                for (let result of results) {
+                    const espnFF = new ESPNFF();
+                    espnFF.getTrophies(result.league_id)
+                        .then((trophies) => {
+                            bot.sendMessage(result.channel_id, trophies);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            });
+
     }
 
     showScoreboard = () => {

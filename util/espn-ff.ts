@@ -77,4 +77,82 @@ export default class EspnFF {
     getScoreline = (teamA, teamB) => {
         return '**' + this.getName(teamA) + '** [' + teamA.score + '] vs **' + this.getName(teamB) + '** [' + teamB.score + ']\n';
     }
+
+    getTrophies = (leagueId: string) => {
+        return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
+            .then((scoreboard) => {
+                let trophies = 'Here are your trophies for this week! Remember, always blame the kicker! :wink:\n';
+                trophies += '----------------------------\n';
+                trophies += this.getHighScore(scoreboard);
+                trophies += this.getLowScore(scoreboard);
+                trophies += this.getBiggestWin(scoreboard);
+                trophies += this.getClosestWin(scoreboard);
+                trophies += '----------------------------\n';
+                return trophies;
+            });
+    }
+
+    getHighScore = (scoreboard) => {
+        let highScore = {
+            score: 0,
+            response: ''
+        };
+        for (let matchup of scoreboard.scoreboard.matchups) {
+            const teams = matchup.teams;
+            if (teams[0].score > highScore.score || teams[1].score > highScore.score) {
+                const higherTeam = teams[0].score < teams[1].score ? teams[1] : teams[0];
+                highScore.score = higherTeam.score;
+                highScore.response = ':trophy: Highest Score -> **' + this.getName(higherTeam) + '** with score [' + higherTeam.score + ']\n';
+            }
+        }
+        return highScore.response;
+    }
+
+    getLowScore = (scoreboard) => {
+        let lowScore = {
+            score: 9999,
+            response: ''
+        };
+        for (let matchup of scoreboard.scoreboard.matchups) {
+            const teams = matchup.teams;
+            if (teams[0].score < lowScore.score || teams[1].score < lowScore.score) {
+                const lowerTeam = teams[0].score > teams[1].score ? teams[1] : teams[0];
+                lowScore.score = lowerTeam.score;
+                lowScore.response = ':trophy: Lowest Score -> **' + this.getName(lowerTeam) + '** with score [' + lowerTeam.score + ']\n';
+            }
+        }
+        return lowScore.response;
+    }
+
+    getBiggestWin = (scoreboard) => {
+        let biggestWin = {
+            diff: 0,
+            response: ''
+        };
+        for (let matchup of scoreboard.scoreboard.matchups) {
+            const teams = matchup.teams;
+            const diff = Math.abs(teams[0].score - teams[1].score);
+            if (diff > biggestWin.diff) {
+                biggestWin.diff = diff;
+                biggestWin.response = ':trophy: Biggest Win [' + diff.toFixed(2) + '] -> ' + this.getScoreline(teams[0], teams[1]);
+            }
+        }
+        return biggestWin.response;
+    }
+
+    getClosestWin = (scoreboard) => {
+        let closestWin = {
+            diff: 9999,
+            response: ''
+        };
+        for (let matchup of scoreboard.scoreboard.matchups) {
+            const teams = matchup.teams;
+            const diff = Math.abs(teams[0].score - teams[1].score);
+            if (diff < closestWin.diff) {
+                closestWin.diff = diff;
+                closestWin.response = ':trophy: Closest Win [' + diff.toFixed(2) + '] -> ' + this.getScoreline(teams[0], teams[1]);
+            }
+        }
+        return closestWin.response;    
+    }
 }
