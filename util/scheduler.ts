@@ -17,10 +17,6 @@ export default class Scheduler {
         const startNow = true;
         /* jobs */
         new CronJob('* * * * *', () => {
-            // this.testCron();
-        }, null, startNow, LOCALE);
-
-        new CronJob('* * * * *', () => {
             console.log('executing matchup announcement');
             this.showMatchups();
         }, null, startNow, LOCALE);
@@ -29,15 +25,6 @@ export default class Scheduler {
             console.log('executing close scores announcement');
             this.showCloseScores();
         }, null, startNow, LOCALE);
-    }
-
-    testCron = () => {
-        LeagueChannel.findAll({})
-            .then((results: any) => {
-                for (let result of results) {
-                    bot.sendMessage(result.channel_id, result.league_id);
-                }
-            })
     }
 
     showMatchups = () => {
