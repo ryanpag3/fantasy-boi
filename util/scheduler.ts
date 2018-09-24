@@ -18,7 +18,7 @@ export default class Scheduler {
         /* jobs */
         new CronJob('* * * * *', () => {
             console.log('executing matchup announcement');
-            this.showMatchups();
+            this.showScoreboard();
         }, null, startNow, LOCALE);
 
         new CronJob('* * * * *', () => {
@@ -30,14 +30,24 @@ export default class Scheduler {
             console.log('executing trophies announcement');
             this.showTrophies();
         }, null, startNow, LOCALE);
+
+        new CronJob('* * * * *', () => {
+            console.log('executing matchups announcement');
+            this.showMatchups();
+        }, null, startNow, LOCALE);
+
+        new CronJob('* * * * *', () => {
+            console.log('executing box scores announcement');
+            this.showBoxScore();
+        }, null, startNow, LOCALE);
     }
 
-    showMatchups = () => {
+    showScoreboard = () => {
         LeagueChannel.findAll({})
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
-                    espnFF.getLeagueMatchups(result.league_id)
+                    espnFF.getLeagueScoreboard(result.league_id)
                         .then((matchups) => {
                             bot.sendMessage(result.channel_id, matchups);
                         })
@@ -81,12 +91,30 @@ export default class Scheduler {
 
     }
 
-    showScoreboard = () => {
-        // todo
+    showMatchups = () => {
+        LeagueChannel.findAll({})
+            .then((results: any) => {
+                for (let result of results) {
+                    const espnFF = new ESPNFF();
+                    espnFF.getMatchups(result.league_id)
+                        .then((trophies) => {
+                            bot.sendMessage(result.channel_id, trophies);
+                        })
+                }
+            })
     }
 
     showBoxScore = () => {
-        // todo
+        LeagueChannel.findAll({})
+            .then((results: any) => {
+                for (let result of results) {
+                    const espnFF = new ESPNFF();
+                    espnFF.getBoxScores(result.league_id)
+                        .then((scores) => {
+                            bot.sendMessage(result.channel_id, scores);
+                        });
+                }
+            })
     }
 
 }

@@ -1,9 +1,6 @@
 import espnFF from 'espn-ff-api-2';
-import pConfig from '../config.private.json';
 
 export default class EspnFF {
-    readonly s2Token: string = pConfig.espn.s2;
-    readonly swid: string = pConfig.espn.SWID;
     cookies: object;
 
     constructor(cookies: object = undefined) {
@@ -13,17 +10,17 @@ export default class EspnFF {
     /**
      * get a formatted league scoreboard
      */
-    getLeagueMatchups = (leagueId: string) => {
+    getLeagueScoreboard = (leagueId: string) => {
         return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
             .then((payload) => {
-                return this.generateLeagueMatchups(payload);
+                return this.generateLeagueScoreboard(payload);
             });
     }
 
     /**
      * generate a scoreboard from the raw api payload
      */
-    generateLeagueMatchups = (payload) => {
+    generateLeagueScoreboard = (payload) => {
         const date = new Date();
         this.setToLastThursday(date);
         let matchups = 'Here\'s your matchups for the week of ' + date.toLocaleDateString() + '\n';
@@ -76,6 +73,10 @@ export default class EspnFF {
 
     getScoreline = (teamA, teamB) => {
         return '**' + this.getName(teamA) + '** [' + teamA.score + '] vs **' + this.getName(teamB) + '** [' + teamB.score + ']\n';
+    }
+
+    getMatchup = (teamA, teamB) => {
+        return '**' + this.getName(teamA) + '** vs **' + this.getName(teamB) + '**\n';
     }
 
     getTrophies = (leagueId: string) => {
@@ -153,6 +154,26 @@ export default class EspnFF {
                 closestWin.response = ':trophy: Closest Win [' + diff.toFixed(2) + '] -> ' + this.getScoreline(teams[0], teams[1]);
             }
         }
-        return closestWin.response;    
+        return closestWin.response;
+    }
+
+    getMatchups = (leagueId: string) => {
+        return espnFF.getMatchups(this.cookies || undefined, leagueId)
+            .then((body) => {
+                console.log(body);
+                let matchups = 'Yo, found your matchups. :fist:\n'
+                for (let matchup of body) {
+                    const teams = matchup.teams;
+                    matchups += this.getMatchup(teams[0], teams[1]);
+                }
+                return matchups;
+            });
+    }
+
+    getBoxScores = (leagueId: string) => {
+        return espnFF.getBoxScore(this.cookies || undefined, leagueId)
+            .then((body) => {
+                console.log(body);
+            });
     }
 }

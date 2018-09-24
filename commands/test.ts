@@ -8,7 +8,7 @@ const espnFF = new ESPNFF();
  */
 export default (message: Message) => {
     message.channel.send('I\'m ready to fumble!');
-    espnFF.getLeagueMatchups('338828')
+    espnFF.getLeagueScoreboard('338828')
         .then((res) => {
             for (let matchup of res.scoreboard.matchups) {
                 const teamA = matchup.teams[0];
