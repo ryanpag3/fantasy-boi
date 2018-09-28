@@ -41,5 +41,17 @@ export default {
             });
         });
 
+    },
+
+    getLeague(channelID: string) {
+         const LeagueChannel = this.league_channel;
+         return LeagueChannel.findOne({where: { channel_id: channelID}})
+            .then((res) => {
+                console.log('ghm');
+                return res.league_id;
+            })
+            .catch((err) => {
+                console.log('Error while getting league from m2m league_channel: ' + err);
+            });
     }
 }
