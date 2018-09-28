@@ -45,14 +45,14 @@ export default class Scheduler {
         }, null, startNow, LOCALE);
 
         new CronJob(devEnv ? '* * * * *' : '30 18 * * 2', () => {
-            console.log('executing box scores announcement');
+            console.log('executing power rankigns announcement');
             this.showPowerRankings();
         }, null, startNow, LOCALE);
 
-        new CronJob(devEnv ? '* * * * *' : '', () => {
-            console.log('executing box scores announcement');
-            // this.showBoxScore();
-        }, null, startNow, LOCALE);
+        // new CronJob(devEnv ? '* * * * *' : '', () => {
+        //     console.log('executing box scores announcement');
+        //     // this.showBoxScore();
+        // }, null, startNow, LOCALE);
     }
 
     showScoreboard = () => {
