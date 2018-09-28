@@ -24,7 +24,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:ryanpage42/fantasy-boi.git',
       path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      'post-deploy' : 'npm install && tsc && pm2 reload ecosystem.config.js --env production'
     }
   }
 };
