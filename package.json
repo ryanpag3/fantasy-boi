@@ -41,7 +41,6 @@
     "@types/long": "^4.0.0",
     "@types/node": "^10.10.3",
     "@types/sequelize": "^4.27.25",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.0.3"
+    "ts-node": "^7.0.1"
   }
 }
