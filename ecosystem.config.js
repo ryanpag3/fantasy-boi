@@ -23,7 +23,7 @@ module.exports = {
       host : 'localhost',
       ref  : 'origin/master',
       repo : 'git@github.com:ryanpage42/fantasy-boi.git',
-      path : '/var/www/production',
+      path : '/var/opt/fantasy-boi/source',
       'post-deploy' : 'npm install && tsc && pm2 reload ecosystem.config.js --env production'
     }
   }

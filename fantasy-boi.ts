@@ -19,6 +19,9 @@ bot.on('ready', () => {
 
 /* message listener */
 bot.on('message', message => {
+    if (Math.floor((Math.random() * 2)) == 1) // every other msg or so
+        bot.user.setActivity(`Throwing for ${bot.guilds.size} yard(s).`);
+
     const messageArr = message.content.split(' ');
     const command = messageArr[0] + ' ' + messageArr[1]; // risky, fix
 
