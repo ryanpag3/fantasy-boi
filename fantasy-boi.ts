@@ -14,7 +14,7 @@ DB.init(); // initialize database
 /* ready listener */
 bot.on('ready', () => {
     console.log('Fantasy Boi has been initialized successfully!');
-    bot.user.setActivity(`Serving ${bot.guilds.size} server(s)`);
+    bot.user.setActivity(`Throwing for ${bot.guilds.size} yard(s).`);
 });
 
 /* message listener */
