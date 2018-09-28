@@ -160,7 +160,7 @@ export default class EspnFF {
     getMatchups = (leagueId: string) => {
         return espnFF.getMatchups(this.cookies || undefined, leagueId)
             .then((body) => {
-                console.log(body);
+                // console.log(body);
                 let matchups = 'Yo, found your matchups. :fist:\n'
                 for (let matchup of body) {
                     const teams = matchup.teams;
@@ -168,6 +168,90 @@ export default class EspnFF {
                 }
                 return matchups;
             });
+    }
+
+    getPowerRankings = (leagueId: string) => {
+        return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
+            .then((body) => {
+                return this.generatePowerRankings(body);
+            });
+    }
+
+    generatePowerRankings = (leagueInfo: any) => {
+        const scoringPeriodStartDate = new Date(leagueInfo.scoreboard.dateFirstProGameOfScoringPeriod);
+        const matchups = leagueInfo.scoreboard.matchups;
+        let players = this.generatePlayers(matchups);
+        let rankingsMsg = 'Here are your power rankings for the week of ' + scoringPeriodStartDate.toLocaleDateString() + '. These are decided based on points earned and margin of victory using a 20/80 weight.\n';
+        players.map((player) => {
+            rankingsMsg += (player.rank > 0 && player.rank < 4 ? this.getMedal(player.rank) + ' ' : '        ') + player.rank + '. **' + player.name + '** (' + player.powerScore.toFixed(0) + ')\n';
+        });
+        rankingsMsg += 'Congratulations to those who performed well this week. Better luck next time to the losers!';
+        return rankingsMsg;
+    }
+
+    getMedal = (rank) => {
+        if (rank == 1)
+            return ':first_place:'
+        if (rank == 2)
+            return ':second_place:'
+        if (rank == 3)
+            return ':third_place:';
+    }
+
+    generatePlayers = (matchups: any) => {
+        let p = [];
+        for (let matchup of matchups) {
+            for (let i = 0; i < matchup.teams.length; i++) {
+                p.push({
+                    abbrev: matchup.teams[i].teamAbbrev,
+                    name: this.getName(matchup.teams[i]),
+                    margin: this.getWinMargin(matchup.teams[i], matchup.teams[i == 0 ? 1 : 0]),
+                    points: matchup.teams[i].score,
+                    powerScore: null,
+                    rank: null
+                })
+            }
+        }
+        return this.rankPlayers(p);
+    }
+
+    rankPlayers = (players: any) => {
+        players = this.generatePowerScore(players);
+        players = this.sortByPowerScore(players);
+
+        for (let i = 0; i < players.length; i++) {
+            players[i].rank = i+1;
+        }
+
+        return players;
+    }
+
+    generatePowerScore = (players: any) => {
+        players = players.map((player) => {
+            let powerScore = 0;
+            powerScore += player.margin * 80;
+            powerScore += player.points * 20
+            powerScore = powerScore / 100;
+            player.powerScore = powerScore;
+            return player;
+        });
+        return players;
+    }
+
+    sortByPowerScore = (players: any) => {
+        players = players.sort((a, b) => {
+            if (a.powerScore > b.powerScore) return -1;
+            if (a.powerScore < b.powerScore) return 1;
+            return 0;
+        });
+        return players;
+    }
+
+    /**
+     * subtract first from second
+     */
+    getWinMargin = (teamA, teamB) => {
+        return teamA.score - teamB.score;
     }
 
     getBoxScores = (leagueId: string) => {

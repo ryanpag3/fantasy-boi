@@ -4,6 +4,9 @@ import {
 import DB from './db';
 import bot from './bot';
 import ESPNFF from './espn-ff';
+import env from '../util/env';
+
+const devEnv = env == 'development';
 
 const LeagueChannel = DB.league_channel;
 
@@ -16,29 +19,39 @@ export default class Scheduler {
         console.log('loading scheduler jobs');
         const startNow = true;
         /* jobs */
-        new CronJob('* * * * *', () => {
-            console.log('executing matchup announcement');
+        new CronJob(devEnv ? '* * * * *' : '30 7 * * 1,2,5', () => {
+            console.log('executing next morning scoreboard announcement');
             this.showScoreboard();
         }, null, startNow, LOCALE);
 
-        new CronJob('* * * * *', () => {
+        new CronJob(devEnv ? '* * * * *' : '00 16,20 * * 0', () => {
+            console.log('executing next morning scoreboard announcement');
+            this.showScoreboard();
+        }, null, startNow, LOCALE);
+
+        new CronJob(devEnv ? '* * * * *' : '30 18 * * 1', () => {
             console.log('executing close scores announcement');
             this.showCloseScores();
         }, null, startNow, LOCALE);
 
-        new CronJob('* * * * *', () => {
+        new CronJob(devEnv ? '* * * * *' : '30 7 * * 2', () => {
             console.log('executing trophies announcement');
             this.showTrophies();
         }, null, startNow, LOCALE);
 
-        new CronJob('* * * * *', () => {
+        new CronJob(devEnv ? '* * * * *' : '30 19 * * 4', () => {
             console.log('executing matchups announcement');
             this.showMatchups();
         }, null, startNow, LOCALE);
 
-        new CronJob('* * * * *', () => {
+        new CronJob(devEnv ? '* * * * *' : '30 18 * * 2', () => {
             console.log('executing box scores announcement');
-            this.showBoxScore();
+            this.showPowerRankings();
+        }, null, startNow, LOCALE);
+
+        new CronJob(devEnv ? '* * * * *' : '', () => {
+            console.log('executing box scores announcement');
+            // this.showBoxScore();
         }, null, startNow, LOCALE);
     }
 
@@ -103,6 +116,24 @@ export default class Scheduler {
                 }
             })
     }
+
+    showPowerRankings = () => {
+        LeagueChannel.findAll({})
+            .then((results: any) => {
+                for (let result of results) {
+                    const espnFF = new ESPNFF();
+                    espnFF.getPowerRankings(result.league_id)
+                        .then((rankings) => {
+                            console.log(rankings);
+                            bot.sendMessage(result.channel_id, rankings);
+                        })
+                }
+            })
+    }
+
+
+
+
 
     showBoxScore = () => {
         LeagueChannel.findAll({})

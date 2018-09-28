@@ -6,6 +6,7 @@ import Scheduler from './util/scheduler';
 import DB from './util/db';
 
 let bot = new Discord.Client();
+const maxListeners: Number = 25;
 const emitter = new EventEmitter();
 
 DB.init(); // initialize database
@@ -36,6 +37,9 @@ bot.on('message', message => {
     // console.log('command: ' + command);
     emitter.emit(command, message);
 });
+
+// set max listeners
+emitter.setMaxListeners(100);
 
 /* import commands */
 import help from './commands/help';
