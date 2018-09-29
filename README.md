@@ -14,6 +14,10 @@ _Credit to [u/dtcarls](https://github.com/dtcarls) and [ff_bot](https://github.c
 # Commands
 You can interact with **Fantasy Boi** to get updated information for your fantasy league.
 
+## Show League Information
+
+You can issue various commands to get league information responsively
+
 **Scoreboard** | `!fb scores` or `!fb -s`
 
 **Matchups** | `!fb matchups` or `!fb -m`
@@ -22,16 +26,18 @@ You can interact with **Fantasy Boi** to get updated information for your fantas
 
 **Trophies** | `!fb trophies` or `!fb -t`
 
-## Show League Information
-You can issue various commands to get league information responsively.
+.
 
 ## Enable/Disable Events
-**Fantasy Boi** allows events to be enabled or disabled per channel.
-* **Enabling** - `!fb enable <id>` where <id> is the number of the scheduled event (above)
-    * ex. `!fb enable 1` will enable scoreboard announcements.
-    * Although not recommended, you can also use the event code. (ex. `!fb enable show_scoreboard`) 
-* **Disabling** - `!fb disable <id>`
-    * Again, you can also use the event code such as `show_power_rankings`
+
+You can also enable and disable league event announcements per channel.
+
+**Enabling** - `!fb enable <id>` where <id> is the number of the scheduled event (above)
+* ex. `!fb enable 1` will enable scoreboard announcements.
+* Although not recommended, you can also use the event code. (ex. `!fb enable show_scoreboard`) 
+
+**Disabling** - `!fb disable <id>`
+* Again, you can also use the event code such as `show_power_rankings`
 
 # Developing
 Contributing to **Fantasy Boi** is relatively simple.
