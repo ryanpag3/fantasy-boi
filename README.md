@@ -14,6 +14,14 @@ _Credit to [u/dtcarls](https://github.com/dtcarls) and [ff_bot](https://github.c
 # Commands
 You can interact with **Fantasy Boi** to get updated information for your fantasy league.
 
+## Setup
+
+To have Fantasy Boi start watching your league run the following command.
+
+* `!fb add <league id>`
+    * You can find your league ID by logging into ESPN fantasy and looking at your URL when on the clubhouse page.
+    * ex. `games.espn.com/ffl/clubhouse?leagueId=`**123456**`&teamId=1&seasonId=2018`
+
 ## Show League Information
 
 You can issue various commands to get league information responsively
