@@ -12,7 +12,15 @@ _Credit to [u/dtcarls](https://github.com/dtcarls) and [ff_bot](https://github.c
 1. **Power Rankings** | Tues 18:30 | Displays the weekly power rankings of teams based on points and margin of victory, weighted 20/80 respectifully.
 
 # Commands
-**Fantasy Boi** provides a chat interface for displaying information, and enabling/disabling bot functionality per channel.
+You can interact with **Fantasy Boi** to get updated information for your fantasy league.
+
+**Scoreboard** | `!fb scores` or `!fb -s`
+
+**Matchups** | `!fb matchups` or `!fb -m`
+
+**Close Scores** | `!fb close-scores` or `!fb -cs`
+
+**Trophies** | `!fb trophies` or `!fb -t`
 
 ## Show League Information
 You can issue various commands to get league information responsively.
