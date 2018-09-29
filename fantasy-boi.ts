@@ -88,7 +88,7 @@ emitter.on(prefix + '-a', add);
 
 // remove fantasy boi from a channel
 emitter.on(prefix + 'remove', remove);
-emitter.on(prefix + 'rm', remove);
+emitter.on(prefix + '-rm', remove);
 
 // disable an event
 emitter.on(prefix + 'disable', disable);

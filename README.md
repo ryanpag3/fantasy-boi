@@ -25,7 +25,7 @@ To have Fantasy Boi start watching your league run the following command.
 You can also remove a league.
 
 * `!fb remove <league id>`
-* `!fb rm <league id>`
+* `!fb -rm <league id>`
 
 ## Show League Information
 
