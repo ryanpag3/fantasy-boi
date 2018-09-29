@@ -21,6 +21,11 @@ To have Fantasy Boi start watching your league run the following command.
 * `!fb add <league id>`
     * You can find your league ID by logging into ESPN fantasy and looking at your URL when on the clubhouse page.
     * ex. `games.espn.com/ffl/clubhouse?leagueId=`**123456**`&teamId=1&seasonId=2018`
+  
+You can also remove a league.
+
+* `!fb remove <league id>`
+* `!fb rm <league id>`
 
 ## Show League Information
 
