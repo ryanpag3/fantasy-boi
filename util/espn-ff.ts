@@ -23,7 +23,7 @@ export default class EspnFF {
     generateLeagueScoreboard = (payload) => {
         const date = new Date();
         this.setToLastThursday(date);
-        let matchups = 'Here\'s your matchups for the week of ' + date.toLocaleDateString() + '\n';
+        let matchups = 'Here\'s your team scores for the week of ' + date.toLocaleDateString() + '\n';
         for (let matchup of payload.scoreboard.matchups) {
             const teamA = matchup.teams[0];
             const locationA = teamA.team.teamLocation;
@@ -254,10 +254,34 @@ export default class EspnFF {
         return teamA.score - teamB.score;
     }
 
-    getBoxScores = (leagueId: string) => {
-        return espnFF.getBoxScore(this.cookies || undefined, leagueId)
+    getLeagueRankings = (leagueId) => {
+        return espnFF.getLeagueScoreboard(this.cookies || undefined, leagueId)
             .then((body) => {
-                console.log(body);
-            });
+                let teams = [];
+                body.scoreboard.matchups.map(matchup => teams = teams.concat(matchup.teams));
+                teams.sort((a, b) => {
+                    if (a.team.record.overallStanding > b.team.record.overallStanding) return 1;
+                    if (a.team.record.overallStanding < b.team.record.overallStanding) return -1;
+                    return 0;
+                });
+
+                teams = teams.map(team => {
+                    return {
+                        rank: team.team.record.overallStanding,
+                        abbrev: team.team.teamAbbrev,
+                        name: this.getName(team)
+                    }
+                });
+
+                return teams;
+            })
+    }
+
+    generateRankingsMsg = (rankings) => {
+        let msg = 'Here is your overall league rankings so far.\n';
+        for (let ranking of rankings) {
+            msg += '**#' + ranking.rank + '** ' + ranking.name + ' (_' + ranking.abbrev + '_)\n';
+        }
+        return msg;
     }
 }

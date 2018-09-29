@@ -42,7 +42,19 @@ bot.on('message', message => {
 });
 
 // set max listeners
-emitter.setMaxListeners(100);
+emitter.setMaxListeners(0);
+
+emitter.on('ready', () => {
+    console.log('emitter ready');
+})
+
+emitter.on('error', (err) => {
+    console.log('emitter err: ' + err);
+});
+
+emitter.on('close', (msg) => {
+    console.log('emitter closed: ' + msg);
+});
 
 /* import commands */
 import help from './commands/help';
@@ -52,23 +64,25 @@ import add from './commands/add';
 import remove from './commands/remove';
 import disable from './commands/disable';
 import enable from './commands/enable';
+import scores from './commands/scores';
+import rankings from './commands/rankings';
 
 // get a list of commands
 emitter.on(prefix + 'help', help);
-emitter.on(prefix + 'h', help);
+emitter.on(prefix + '-h', help);
 
 // test bot functionality
 emitter.on(prefix + 'test', test);
-emitter.on(prefix + 't', test);
+emitter.on(prefix + '-t', test);
 
 // get this weeks matchups
 emitter.on(prefix + 'matchups', matchups);
 emitter.on(prefix + 'scoreboard', matchups);
-emitter.on(prefix + 'm', matchups);
+emitter.on(prefix + '-m', matchups);
 
 // add fantasy boi to the channel
 emitter.on(prefix + 'add', add);
-emitter.on(prefix + 'a', add);
+emitter.on(prefix + '-a', add);
 
 // remove fantasy boi from a channel
 emitter.on(prefix + 'remove', remove);
@@ -76,9 +90,19 @@ emitter.on(prefix + 'rm', remove);
 
 // disable an event
 emitter.on(prefix + 'disable', disable);
+emitter.on(prefix + '-d', disable);
 
 // enable an event
 emitter.on(prefix + 'enable', enable);
+emitter.on(prefix + '-e', enable);
+
+// show current ff team scores
+emitter.on(prefix + 'scores', scores);
+emitter.on(prefix + '-s', scores);
+
+// show current league rankings
+emitter.on(prefix + 'rankings', rankings);
+emitter.on(prefix + '-r', rankings);
 
 // link an espn user account
 
