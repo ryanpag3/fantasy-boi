@@ -36,9 +36,9 @@ export default {
                 if (result.warningCount != 1)
                     console.log('Database ' + config.database.mysql.name + ' has been created!');
                 // table creations
-                this.user.sync();
-                this.league.sync();
-                this.league_channel.sync();
+                this.user.sync({alter: true});
+                this.league.sync({alter: true});
+                this.league_channel.sync({alter: true});
             });
         });
 
