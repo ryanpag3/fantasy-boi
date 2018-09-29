@@ -34,7 +34,6 @@ You can issue various commands to get league information responsively
 
 **Trophies** | `!fb trophies` or `!fb -t`
 
-.
 
 ## Enable/Disable Events
 
