@@ -56,7 +56,11 @@ export default class Scheduler {
     }
 
     showScoreboard = () => {
-        LeagueChannel.findAll({})
+        LeagueChannel.findAll({
+            where: {
+                show_scoreboard: true
+            }
+        })
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
@@ -72,7 +76,11 @@ export default class Scheduler {
     }
 
     showCloseScores = () => {
-        LeagueChannel.findAll({})
+        LeagueChannel.findAll({
+            where: {
+                show_close_scores: true
+            }
+        })
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
@@ -88,7 +96,11 @@ export default class Scheduler {
     }
 
     showTrophies = () => {
-        LeagueChannel.findAll({})
+        LeagueChannel.findAll({
+            where: {
+                show_trophies: true
+            }
+        })
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
@@ -105,7 +117,11 @@ export default class Scheduler {
     }
 
     showMatchups = () => {
-        LeagueChannel.findAll({})
+        LeagueChannel.findAll({
+            where: {
+                show_matchups: true
+            }
+        })
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
@@ -118,7 +134,11 @@ export default class Scheduler {
     }
 
     showPowerRankings = () => {
-        LeagueChannel.findAll({})
+        LeagueChannel.findAll({
+            where: {
+                show_power_rankings: true
+            }
+        })
             .then((results: any) => {
                 for (let result of results) {
                     const espnFF = new ESPNFF();
@@ -131,21 +151,8 @@ export default class Scheduler {
             })
     }
 
-
-
-
-
-    showBoxScore = () => {
-        LeagueChannel.findAll({})
-            .then((results: any) => {
-                for (let result of results) {
-                    const espnFF = new ESPNFF();
-                    espnFF.getBoxScores(result.league_id)
-                        .then((scores) => {
-                            bot.sendMessage(result.channel_id, scores);
-                        });
-                }
-            })
+    showPlayerTrivia = () => {
+        
     }
 
 }

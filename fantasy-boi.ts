@@ -50,6 +50,8 @@ import test from './commands/test';
 import matchups from './commands/matchups';
 import add from './commands/add';
 import remove from './commands/remove';
+import disable from './commands/disable';
+import enable from './commands/enable';
 
 // get a list of commands
 emitter.on(prefix + 'help', help);
@@ -71,6 +73,12 @@ emitter.on(prefix + 'a', add);
 // remove fantasy boi from a channel
 emitter.on(prefix + 'remove', remove);
 emitter.on(prefix + 'rm', remove);
+
+// disable an event
+emitter.on(prefix + 'disable', disable);
+
+// enable an event
+emitter.on(prefix + 'enable', enable);
 
 // link an espn user account
 

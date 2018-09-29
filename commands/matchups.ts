@@ -6,6 +6,6 @@ const espnFF = new ESPNFF();
 
 export default (message: Message) => {
     db.getLeague(message.channel.id)
-        .then((leagueId) => espnFF.getLeagueScoreboard(leagueId))
+        .then((leagueId) => espnFF.getMatchups(leagueId))
         .then((matchups) => message.channel.send(matchups));
 };

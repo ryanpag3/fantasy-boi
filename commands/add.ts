@@ -13,14 +13,28 @@ const LeagueChannel = DB.league_channel;
  */
 export default (message: Message) => {
     const content = commandHelper.removePrefixCommand(message.content, 2);
-    console.log(content);
-    LeagueChannel.insertOrUpdate({
-        league_id: content,
+
+    LeagueChannel.findAll({where: {
         channel_id: message.channel.id
-    }).then((res) => {
+    }}).then((records) => {
+        if (records.length > 0)
+            throw 'A league already exists on channel. Don\'t like this? Send angry DMs to the developer! :angry:';
+    })
+    .then(() => LeagueChannel.insertOrUpdate({
+        league_id: content,
+        channel_id: message.channel.id,
+        show_scoreboard: true,
+        show_close_scores: true,
+        show_trophies: true,
+        show_matchups: true,
+        show_power_rankings: true
+    })).then((res) => {
         if (res == true)
             message.channel.send('League with id: [' + content + '] has been successfully added to ' + message.channel + '! :fist:');
         else
             message.channel.send('League already exists on ' + message.channel + '! :joy:')
     })
+    .catch((err) => {
+        message.channel.send('Could not add league. Reason: _' + err + '_');
+    });
 }

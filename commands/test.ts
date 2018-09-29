@@ -1,5 +1,7 @@
 import { Message } from 'discord.js';
 import ESPNFF from '../util/espn-ff';
+import eFF from 'espn-ff-api-2';
+import db from '../util/db';
 
 const espnFF = new ESPNFF();
 /**
@@ -8,18 +10,8 @@ const espnFF = new ESPNFF();
  */
 export default (message: Message) => {
     message.channel.send('I\'m ready to fumble!');
-    espnFF.getLeagueScoreboard('338828')
-        .then((res) => {
-            for (let matchup of res.scoreboard.matchups) {
-                const teamA = matchup.teams[0];
-                const locationA = teamA.team.teamLocation;
-                const nicknameA = teamA.team.teamNickname;
-                const nameA = locationA + (locationA.endsWith(' ') || nicknameA.startsWith(' ') ? '' : ' ') + nicknameA;
-                const teamB = matchup.teams[1];
-                const locationB = teamB.team.teamLocation;
-                const nicknameB = teamB.team.teamNickname;
-                const nameB = locationB + (locationB.endsWith(' ') || nicknameB.startsWith(' ') ? '' : ' ') + nicknameB;
-                console.log(nameA + ' vs ' + nameB);
-            }
-        });
+    db.getLeague(message.channel.id)
+        .then((leagueId) => eFF.getLeagueScoreboard(undefined, leagueId))
+        .then((scoreboard) => console.log(JSON.stringify(scoreboard, null, 4)))
+        .catch((err) => console.log(err));    
 };
