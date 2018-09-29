@@ -29,7 +29,7 @@ You can issue various commands to get league information responsively.
 **Fantasy Boi** allows events to be enabled or disabled per channel.
 * **Enabling** - `!fb enable <id>` where <id> is the number of the scheduled event (above)
     * ex. `!fb enable 1` will enable scoreboard announcements.
-    * You can also use the event code. (ex. `!fb enable show_scoreboard`) 
+    * Although not recommended, you can also use the event code. (ex. `!fb enable show_scoreboard`) 
 * **Disabling** - `!fb disable <id>`
     * Again, you can also use the event code such as `show_power_rankings`
 
