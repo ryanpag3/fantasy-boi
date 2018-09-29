@@ -66,6 +66,8 @@ import disable from './commands/disable';
 import enable from './commands/enable';
 import scores from './commands/scores';
 import rankings from './commands/rankings';
+import closeScores from './commands/close-scores';
+import trophies from './commands/trophies';
 
 // get a list of commands
 emitter.on(prefix + 'help', help);
@@ -103,6 +105,14 @@ emitter.on(prefix + '-s', scores);
 // show current league rankings
 emitter.on(prefix + 'rankings', rankings);
 emitter.on(prefix + '-r', rankings);
+
+// show close scores
+emitter.on(prefix + 'close-scores', closeScores);
+emitter.on(prefix + '-cs', closeScores);
+
+// show trophies
+emitter.on(prefix + 'trophies', trophies);
+emitter.on(prefix + '-t', trophies);
 
 // link an espn user account
 

@@ -2,7 +2,7 @@
 
 _Credit to [u/dtcarls](https://github.com/dtcarls) and [ff_bot](https://github.com/dtcarls/ff_bot) for inspiration for this project._
 
-**Fantasy Boi** [`!fb`] is a native ESPN Fantasy Football discord bot that sends information to text channels. Currently, only one league per channel is allowed to avoid spam.
+**Fantasy Boi** [`!fb`] is a ESPN Fantasy Football native Discord bot that sends information to text channels. Currently, only one league per channel is allowed to avoid spam.
 
 ## Scheduled Events
 1. **Scoreboard** | Fri,Mon,Tues 7:30 | Sun 16:00, 20:00 | Display current scores.

@@ -12,7 +12,6 @@ const LeagueChannel = DB.league_channel;
  */
 export default (message: Message) => {
     const content = commandHelper.removePrefixCommand(message.content, 2);
-    console.log(content);
     LeagueChannel.destroy({
         where: {
             league_id: content,
